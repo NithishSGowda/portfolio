@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+    --color-neon-green: #00ff41;
+    --color-neon-blue: #00d9ff;
+    --color-cyber-black: #0f1419;
+    --color-cyber-dark: #1a1f2e;
+    --color-cyber-gray: #242b3d;
+
+    --font-mono: 'Space Mono', 'Fira Code', 'Courier New', monospace;
+    --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+@layer base {
+    body {
+        @apply bg-[var(--color-cyber-black)] text-gray-200 font-sans;
+        overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-mono font-bold tracking-tight text-white;
+    }
+}
+
+@layer utilities {
+    .text-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-[var(--color-neon-green)] to-[var(--color-neon-blue)];
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-[var(--color-cyber-dark)];
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-[var(--color-neon-green)]/30 rounded;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        @apply bg-[var(--color-neon-green)]/60;
+    }
+
+    /* Glassmorphism */
+    .glass-card {
+        @apply bg-[var(--color-cyber-gray)]/80 border border-[var(--color-neon-green)]/30 backdrop-blur-md rounded-xl transition-all duration-300;
+    }
+
+    .glass-card:hover {
+        @apply border-[var(--color-neon-green)]/60 shadow-[0_0_20px_rgba(0,255,65,0.25)];
+    }
+
+    /* Background Grid */
+    .bg-cyber-grid::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-size: 50px 50px;
+        background-image:
+            linear-gradient(to right, rgba(0, 255, 65, 0.06) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(0, 255, 65, 0.06) 1px, transparent 1px);
+        mask-image: radial-gradient(circle at center, black, transparent 80%);
+        -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);
+        z-index: -1;
+        pointer-events: none;
+    }
+}
