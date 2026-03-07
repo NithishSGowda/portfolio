@@ -16,18 +16,16 @@ const app = express();
 
 app.use(cors({
   origin: [
-    'http://localhost:5173',
+    'https://nithishsgowda-portfolio.netlify.app',
     process.env.FRONTEND_URL
   ].filter(Boolean),
   credentials: true
 }));
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
-
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
-
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/education', educationRoutes);
