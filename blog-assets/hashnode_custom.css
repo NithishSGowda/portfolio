@@ -1,0 +1,110 @@
+/* 
+  Hashnode Custom CSS for Enterprise-Grade Cybersecurity Theme
+  Author: Nithish S. Gowda
+  Paste this into Hashnode Dashboard > Custom CSS
+*/
+
+/* --- CSS Variables for Global Theming --- */
+:root {
+  --cyber-bg: #0B0F19;         /* Deep Midnight Black */
+  --cyber-surface: #1A2235;    /* Slightly lighter card background */
+  --neon-primary: #00FF9D;     /* Hacker Green Accent */
+  --neon-secondary: #3B82F6;   /* Tech Blue Accent */
+  --text-main: #F3F4F6;        /* High-contrast off-white */
+  --text-muted: #9CA3AF;       /* Muted gray for meta info */
+  --font-heading: 'Outfit', 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* --- Base Body Overrides --- */
+body {
+  background-color: var(--cyber-bg) !important;
+  color: var(--text-main) !important;
+  font-family: var(--font-body) !important;
+}
+
+/* --- Headings --- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading) !important;
+  color: var(--text-main) !important;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  text-shadow: 0 0 15px rgba(0, 255, 157, 0.1);
+}
+
+/* --- Links & Buttons --- */
+a {
+  color: var(--neon-secondary) !important;
+  text-decoration: none !important;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+a:hover {
+  color: var(--neon-primary) !important;
+  text-shadow: 0 0 8px rgba(0, 255, 157, 0.4);
+}
+
+button, .btn {
+  background-color: transparent !important;
+  border: 1px solid var(--neon-primary) !important;
+  color: var(--neon-primary) !important;
+  border-radius: 4px !important;
+  font-family: var(--font-mono) !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+button:hover, .btn:hover {
+  background-color: rgba(0, 255, 157, 0.1) !important;
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.2);
+}
+
+/* --- Code Blocks (Enterprise Feel) --- */
+pre, code {
+  font-family: var(--font-mono) !important;
+  background-color: var(--cyber-surface) !important;
+  border: 1px solid rgba(0, 255, 157, 0.1) !important;
+  border-radius: 6px !important;
+  color: #E2E8F0 !important;
+}
+
+/* Add a subtle neon left border to code blocks to look like a terminal */
+pre {
+  border-left: 3px solid var(--neon-primary) !important;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+}
+
+/* --- Navbar / Header Area --- */
+header, .blog-header {
+  background-color: rgba(11, 15, 25, 0.9) !important;
+  backdrop-filter: blur(10px) !important;
+  border-bottom: 1px solid rgba(0, 255, 157, 0.1) !important;
+}
+
+/* --- Cards / Article Previews --- */
+.article-card, article {
+  background-color: var(--cyber-surface) !important;
+  border: 1px solid rgba(255,255,255,0.05) !important;
+  border-radius: 8px !important;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.article-card:hover, article:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 255, 157, 0.3) !important;
+  box-shadow: 0 10px 30px -10px rgba(0, 255, 157, 0.1);
+}
+
+/* --- Blockquotes --- */
+blockquote {
+  border-left: 4px solid var(--neon-primary) !important;
+  background-color: rgba(0, 255, 157, 0.05) !important;
+  color: var(--text-muted) !important;
+  font-style: italic;
+  padding: 1rem 1.5rem !important;
+  border-radius: 0 8px 8px 0;
+}

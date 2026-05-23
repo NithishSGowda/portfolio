@@ -10,12 +10,14 @@ import AboutManager from '../components/AboutManager';
 import HeroManager from '../components/HeroManager';
 import ContactManager from '../components/ContactManager';
 import MessagesManager from '../components/MessagesManager';
+import BlogManager from '../components/BlogManager';
+import { FileText } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [stats, setStats] = useState({ projects: 0, education: 0, skills: 0, certifications: 0, events: 0, unreadMessages: 0 });
+  const [stats, setStats] = useState({ projects: 0, education: 0, skills: 0, certifications: 0, events: 0, unreadMessages: 0, blogs: 0 });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,12 +37,13 @@ const AdminDashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const [projects, education, skills, certifications, events] = await Promise.all([
+      const [projects, education, skills, certifications, events, blogs] = await Promise.all([
         fetch(`${API_URL}/api/projects`).then(r => r.json()),
         fetch(`${API_URL}/api/education`).then(r => r.json()),
         fetch(`${API_URL}/api/skills`).then(r => r.json()),
         fetch(`${API_URL}/api/certifications`).then(r => r.json()),
-        fetch(`${API_URL}/api/events`).then(r => r.json())
+        fetch(`${API_URL}/api/events`).then(r => r.json()),
+        fetch(`${API_URL}/api/blogs`).then(r => r.json())
       ]);
 
       // Get unread messages from localStorage
@@ -53,7 +56,8 @@ const AdminDashboard = () => {
         skills: skills.length,
         certifications: certifications.length,
         events: events.length,
-        unreadMessages: unreadCount
+        unreadMessages: unreadCount,
+        blogs: blogs.length
       });
     } catch (error) {
       console.error('Error fetching stats:', error);
@@ -74,6 +78,7 @@ const AdminDashboard = () => {
     { id: 'skills', label: 'Skills', icon: <Code className="w-5 h-5" /> },
     { id: 'certifications', label: 'Certifications', icon: <Award className="w-5 h-5" /> },
     { id: 'events', label: 'Events', icon: <Calendar className="w-5 h-5" /> },
+    { id: 'blogs', label: 'Blogs', icon: <FileText className="w-5 h-5" /> },
     { id: 'contact', label: 'Contact', icon: <Mail className="w-5 h-5" /> },
     { id: 'messages', label: 'Messages', icon: <MessageSquare className="w-5 h-5" />, badge: stats.unreadMessages }
   ];
@@ -157,6 +162,17 @@ const AdminDashboard = () => {
                   </div>
                   <p className="text-gray-400 text-sm mb-1">Total Projects</p>
                   <h3 className="text-3xl font-bold">{stats.projects}</h3>
+                  <div className="flex items-center gap-1 mt-2 text-green-400 text-sm">
+                    <TrendingUp className="w-4 h-4" />
+                  </div>
+                </div>
+
+                <div className="glass-card p-6 relative overflow-hidden">
+                  <div className="absolute top-4 right-4 w-12 h-12 bg-indigo-500/10 rounded-lg flex items-center justify-center">
+                    <FileText className="w-6 h-6 text-indigo-400" />
+                  </div>
+                  <p className="text-gray-400 text-sm mb-1">Blog Posts</p>
+                  <h3 className="text-3xl font-bold">{stats.blogs}</h3>
                   <div className="flex items-center gap-1 mt-2 text-green-400 text-sm">
                     <TrendingUp className="w-4 h-4" />
                   </div>
@@ -266,6 +282,7 @@ const AdminDashboard = () => {
           {activeTab === 'skills' && <SkillsManager />}
           {activeTab === 'certifications' && <CertificationsManager />}
           {activeTab === 'events' && <EventsManager />}
+          {activeTab === 'blogs' && <BlogManager />}
           {activeTab === 'contact' && <ContactManager />}
           {activeTab === 'messages' && <MessagesManager />}
         </div>

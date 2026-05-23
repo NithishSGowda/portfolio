@@ -1,11 +1,23 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Terminal, Shield } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname === '/' && location.hash) {
+            setTimeout(() => {
+                const element = document.querySelector(location.hash);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 100);
+        }
+    }, [location]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -23,12 +35,24 @@ const Navbar = () => {
         { name: 'Certifications', href: '#certifications' },
         { name: 'Events & Hackathons', href: '#achievements' },
         { name: 'Contact', href: '#contact' },
-
     ];
 
-    const handleNavClick = (e, href) => {
+    const handleNavClick = (e, link) => {
         e.preventDefault();
-        const element = document.querySelector(href);
+
+        if (link.isRoute) {
+            navigate(`/${link.href}`);
+            setIsOpen(false);
+            return;
+        }
+
+        if (window.location.pathname !== '/') {
+            navigate(`/${link.href}`);
+            setIsOpen(false);
+            return;
+        }
+
+        const element = document.querySelector(link.href);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
         }
@@ -52,8 +76,8 @@ const Navbar = () => {
                         {navLinks.map((link) => (
                             <a
                                 key={link.name}
-                                href={link.href}
-                                onClick={(e) => handleNavClick(e, link.href)}
+                                href={link.isRoute ? `/${link.href}` : link.href}
+                                onClick={(e) => handleNavClick(e, link)}
                                 className="text-gray-300 hover:text-[var(--color-neon-green)] transition-colors duration-300 font-mono text-sm relative group"
                             >
                                 {link.name}
@@ -87,8 +111,8 @@ const Navbar = () => {
                         {navLinks.map((link) => (
                             <a
                                 key={link.name}
-                                href={link.href}
-                                onClick={(e) => handleNavClick(e, link.href)}
+                                href={link.isRoute ? `/${link.href}` : link.href}
+                                onClick={(e) => handleNavClick(e, link)}
                                 className="block px-3 py-2 text-base font-mono font-medium text-gray-300 hover:text-[var(--color-neon-green)] hover:bg-[var(--color-cyber-gray)] rounded-md transition-colors"
                             >
                                 {link.name}

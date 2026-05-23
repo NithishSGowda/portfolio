@@ -9,6 +9,7 @@ import skillRoutes from './routes/skills.js';
 import certificationRoutes from './routes/certifications.js';
 import eventRoutes from './routes/events.js';
 import uploadRoutes from './routes/upload.js';
+import blogRoutes from './routes/blogs.js';
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use('/api/skills', skillRoutes);
 app.use('/api/certifications', certificationRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/blogs', blogRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
