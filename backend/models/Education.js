@@ -1,12 +1,15 @@
 import mongoose from 'mongoose';
 
 const educationSchema = new mongoose.Schema({
-  degree: { type: String, required: true },
-  institution: { type: String, required: true },
+  type: { type: String, enum: ['education', 'semester'], default: 'education' },
+  degree: String,
+  institution: String,
   location: String,
   period: String,
   grade: String,
-  highlights: [String]
+  highlights: [String],
+  semester: Number,
+  sgpa: Number
 }, { timestamps: true });
 
 export default mongoose.model('Education', educationSchema);
